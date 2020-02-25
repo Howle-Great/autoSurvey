@@ -7,6 +7,7 @@ import time
 
 class MainTest(BasicTest):
 	messageText = "Я думаю над новой новостью."
+	postText = "Я думаю над новой новостью."
 	groups = [
 		'https://vk.com/overhear_dmitrov1',
 		'https://vk.com/aboutphoto'
@@ -20,7 +21,6 @@ class MainTest(BasicTest):
 		self.login_page.sign_in(self.login, self.password, "")
 		self.login_page.wait_enter()
 		time.sleep(2)
-		# self.main()
 
 	def test_main(self):
 		for group in self.groups:
@@ -28,8 +28,7 @@ class MainTest(BasicTest):
 			if '404' in self.driver.title:
 				continue
 			time.sleep(1) 
-			# self.main_page.write_message(self.messageText)
-			self.main_page.write_post(self.messageText)
+			self.main_page.write_smart_advertising(self.postText, self.messageText)
 			time.sleep(1)
 
 			

@@ -10,6 +10,7 @@ class MainPage(BasicPage):
 	block_input_add_news = "#post_field"
 	btn_send_added_news = "#send_post"
  
+	side_action_menu = "#narrow_column .page_action_menu_groups"
  
 	def redirect(self, url):			
 		self.driver.get(url)
@@ -29,4 +30,13 @@ class MainPage(BasicPage):
 		elem.send_keys(text)
 		elem = self.wait_render(self.btn_send_added_news)
 		elem.click()
+	
+	def write_smart_advertising(self, post_text, message_text):
+		self.wait_render(self.side_action_menu)
+		block_post = self.driver.find_elements_by_css_selector(block_post)
+		block_message = self.driver.find_elements_by_css_selector(block_message)
+		if block_post:
+			self.write_post(post_text)
+		elif block_message:
+			self.write_message(message_text)
 	 
