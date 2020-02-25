@@ -1,2 +1,3 @@
 class BaseUrls():
-    MAIL_URL = 'https://e.mail.ru/inbox'
+    VK_URL = 'https://vk.com/'
+    # VK_URL = 'https://vk.cowm/mhkon'

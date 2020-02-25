@@ -8,11 +8,14 @@ from selenium.webdriver import DesiredCapabilities, Remote
 from .config import config
 
 class BasicTest(unittest.TestCase):
+    login = os.environ.get('LOGIN')
+    password = os.environ.get('PASSWORD')
+    
     def setUp(self):
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_experimental_option('prefs', {'intl.accept_languages': 'ru,ru_RU'})
         # chrome_options.add_argument("--incognito")
-        chrome_options.add_argument("user-data-dir=" + config.CHROME_PROFILE_PATH) #Path to your chrome profile
+        # chrome_options.add_argument("user-data-dir=" + config.CHROME_PROFILE_PATH) #Path to your chrome profile
         if (config.ON_DRIVER):
             print(chrome_options.arguments)
             self.driver = webdriver.Chrome(config.DRIVER, chrome_options=chrome_options)
