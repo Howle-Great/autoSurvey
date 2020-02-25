@@ -12,4 +12,4 @@ class MainTest(BasicTest):
     self.main_page.open()
 
   def test_main(self):
-    time.sleep(5)
+    time.sleep(500)

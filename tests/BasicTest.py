@@ -11,7 +11,10 @@ class BasicTest(unittest.TestCase):
     def setUp(self):
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_experimental_option('prefs', {'intl.accept_languages': 'ru,ru_RU'})
+        # chrome_options.add_argument("--incognito")
+        chrome_options.add_argument("user-data-dir=" + config.CHROME_PROFILE_PATH) #Path to your chrome profile
         if (config.ON_DRIVER):
+            print(chrome_options.arguments)
             self.driver = webdriver.Chrome(config.DRIVER, chrome_options=chrome_options)
         else:
             nodeUrl = 'http://localhost:4444/wd/hub'
