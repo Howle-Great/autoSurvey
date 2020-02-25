@@ -17,7 +17,6 @@ class BasicTest(unittest.TestCase):
         # chrome_options.add_argument("--incognito")
         # chrome_options.add_argument("user-data-dir=" + config.CHROME_PROFILE_PATH) #Path to your chrome profile
         if (config.ON_DRIVER):
-            print(chrome_options.arguments)
             self.driver = webdriver.Chrome(config.DRIVER, chrome_options=chrome_options)
         else:
             nodeUrl = 'http://localhost:4444/wd/hub'
