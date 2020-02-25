@@ -5,7 +5,6 @@ from .pages.MainPage import MainPage
 
 from .config import config
 
-import time
 import yaml
 
 class MainTest(BasicTest):
@@ -18,7 +17,6 @@ class MainTest(BasicTest):
 		self.login_page.open()
 		self.login_page.sign_in(self.login, self.password, "")
 		self.login_page.wait_enter()
-		time.sleep(2)
 	
 	def read_yaml_file(self):
 		with open(config.YAML_FILE_PATH) as file:
@@ -32,8 +30,6 @@ class MainTest(BasicTest):
 			self.main_page.redirect(group)
 			if '404' in self.driver.title:
 				continue
-			time.sleep(1) 
 			self.main_page.write_smart_advertising(self.post_text, self.message_text)
-			time.sleep(1)
 
 			

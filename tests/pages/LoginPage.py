@@ -49,7 +49,6 @@ class LoginPage(BasicPage):
     elem.click()
 
   def sign_in(self, login, password, type):
-    print(self.login_input(type))
     self.wait_render(self.login_input(type))
     self.clear_login(type)
     self.enter_login(login, type)
