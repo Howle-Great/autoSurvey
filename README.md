@@ -14,8 +14,9 @@ pip3 install selenium pyyaml
 ```bash
 export LOGIN="<YOUR LOGIN>" PASSWORD="<YOUR PASSWORD>"
 ```
-5. Run it
+5. Add your links to the processing file.yaml to the groups section
+6. Run it
 ```bash
 python3 run_tests.py
 ```
-6. For the first time, you may need to enter a captcha from Google. You will have 4 minutes to do this.
+7. For the first time, you may need to enter a captcha from Google. You will have 4 minutes to do this.
