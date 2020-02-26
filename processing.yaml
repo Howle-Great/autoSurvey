@@ -1,5 +1,7 @@
-message_text: "Я думаю над новой новостью."
-post_text: "Я думаю над новой новостью."
+message_text: Я думаю над новой новостью.
+post_text: Я думаю над новой новостью.
 groups:
-  - https://vk.com/overhear_dmitrov1
-  - https://vk.com/aboutphoto
+- https://vk.com/aboutphoto
+blocked_pages: []
+error_pages:
+- https://vk.com/overhear_dmitrov1

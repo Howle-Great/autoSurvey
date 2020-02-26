@@ -8,6 +8,11 @@ from .config import config
 import yaml
 
 class MainTest(BasicTest):
+	blocked_group = "#content .groups_blocked_about"
+		
+	counter_publishers = 0
+	blocked_pages = []
+	error_pages = []
 
 	def setUp(self):
 		super(MainTest, self).setUp()
@@ -18,23 +23,46 @@ class MainTest(BasicTest):
 		self.login_page.sign_in(self.login, self.password, "")
 		self.login_page.wait_enter()
 	
+	def show_statistick(self):
+		counter_blocked_pages = len(self.blocked_pages)
+		counter_error_pages = len(self.error_pages)
+		print(f'Statistick: \nPublished: {self.counter_publishers}\nBlocked pages: {counter_blocked_pages}\nError pages: {counter_error_pages}\n')
+
 	def read_yaml_file(self):
 		with open(config.YAML_FILE_PATH) as file:
 			documents = yaml.full_load(file)
 			self.post_text = documents["post_text"]
 			self.message_text = documents["message_text"]
 			self.groups = documents["groups"]
+	 
+	def rewrite_yaml_file(self):
+		yaml_file = {
+			'message_text': self.message_text,
+			'post_text': self.post_text,
+			'groups': self.groups,
+			'blocked_pages': self.blocked_pages,
+			'error_pages': self.error_pages
+		}
+		with open(config.YAML_FILE_PATH, 'w') as file:
+			document = yaml.dump(yaml_file, file, allow_unicode=True, sort_keys=False)
 
 	def test_main(self):
-		blocked_group = "#content .groups_blocked_about"
-		for group in self.groups:
+		for group in self.groups[:]:
 			self.main_page.redirect(group)
-			if self.driver.find_elements_by_css_selector(blocked_group):
-					if self.driver.find_elements_by_css_selector(blocked_group)[0].is_displayed():
-						continue
+			if self.driver.find_elements_by_css_selector(self.blocked_group):
+				if self.driver.find_elements_by_css_selector(self.blocked_group)[0].is_displayed():
+					self.blocked_pages.append(group)
+					self.groups.remove(group)
+					print(self.groups)
+					continue
 			if '404' in self.driver.title:
+				self.error_pages.append(group)
+				self.groups.remove(group)
+				print(self.groups)
 				continue
 			self.main_page.write_smart_advertising(self.post_text, self.message_text)
-		self.main_page.show_statistick()
+			self.counter_publishers += 1
+		self.show_statistick()
+		self.rewrite_yaml_file()
 
 			
