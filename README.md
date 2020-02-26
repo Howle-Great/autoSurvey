@@ -14,7 +14,7 @@ pip3 install selenium pyyaml
 ```bash
 export LOGIN="<YOUR LOGIN>" PASSWORD="<YOUR PASSWORD>"
 ```
-5. Add your links to the processing file.yaml to the groups section
+5. Add your links to the processing file.yaml to the groups section, text for message in message_text and text for post in post_text section
 6. Run it
 ```bash
 python3 run_tests.py
