@@ -6,6 +6,7 @@ from .pages.MainPage import MainPage
 from .config import config
 
 import yaml
+import time
 
 class MainTest(BasicTest):
 	blocked_group = "#content .groups_blocked_about"
@@ -47,6 +48,10 @@ class MainTest(BasicTest):
 			document = yaml.dump(yaml_file, file, allow_unicode=True, sort_keys=False)
 
 	def test_main(self):
+		UNBLOCKING_TIME = 60
+		BLOCKING_TIMES_NUMBER = 20
+		times_counter = 1 #counts the number of shipments
+		start_time = time.time()
 		for group in self.groups[:]:
 			self.main_page.redirect(group)
 			if self.driver.find_elements_by_css_selector(self.blocked_group):
@@ -62,6 +67,14 @@ class MainTest(BasicTest):
 				continue
 			self.main_page.write_smart_advertising(self.post_text, self.message_text)
 			self.counter_publishers += 1
+			times_counter += 1
+	 
+			# rescue bot from blocking with google captcha
+			if times_counter == BLOCKING_TIMES_NUMBER:
+				times_counter = 1
+				if time.time() - start_time < UNBLOCKING_TIME:
+					time.sleep(UNBLOCKING_TIME - (time.time() - start_time))
+	 
 		self.show_statistick()
 		self.rewrite_yaml_file()
 
