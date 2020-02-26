@@ -58,22 +58,20 @@ class MainTest(BasicTest):
 				if self.driver.find_elements_by_css_selector(self.blocked_group)[0].is_displayed():
 					self.blocked_pages.append(group)
 					self.groups.remove(group)
-					print(self.groups)
 					continue
 			if '404' in self.driver.title:
 				self.error_pages.append(group)
 				self.groups.remove(group)
-				print(self.groups)
 				continue
 			self.main_page.write_smart_advertising(self.post_text, self.message_text)
 			self.counter_publishers += 1
 			times_counter += 1
-	 
 			# rescue bot from blocking with google captcha
 			if times_counter == BLOCKING_TIMES_NUMBER:
 				times_counter = 1
 				if time.time() - start_time < UNBLOCKING_TIME:
 					time.sleep(UNBLOCKING_TIME - (time.time() - start_time))
+					start_time = 0
 	 
 		self.show_statistick()
 		self.rewrite_yaml_file()
