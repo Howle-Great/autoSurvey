@@ -18,3 +18,4 @@ export LOGIN="<YOUR LOGIN>" PASSWORD="<YOUR PASSWORD>"
 ```bash
 python3 run_tests.py
 ```
+6. For the first time, you may need to enter a captcha from Google. You will have 4 minutes to do this.
