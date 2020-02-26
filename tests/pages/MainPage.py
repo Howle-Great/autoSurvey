@@ -12,6 +12,9 @@ class MainPage(BasicPage):
  
 	side_action_menu = "#narrow_column .page_action_menu_groups"
  
+	counter_messages = 0
+	counter_posts = 0
+ 
 	def redirect(self, url):			
 		self.driver.get(url)
 		self.wait_redirect(url)
@@ -23,6 +26,7 @@ class MainPage(BasicPage):
 		elem.send_keys(text)
 		elem = self.wait_render(self.btn_send_message)
 		elem.click()
+		self.counter_messages += 1
 	 
 	def write_post(self, text):
 		elem = self.wait_render(self.block_input_add_post)
@@ -30,6 +34,7 @@ class MainPage(BasicPage):
 		elem.send_keys(text)
 		elem = self.wait_render(self.btn_send_added_news)
 		elem.click()
+		self.counter_posts += 1
 	
 	def write_smart_advertising(self, post_text, message_text):
 		self.wait_render(self.side_action_menu)
@@ -40,3 +45,5 @@ class MainPage(BasicPage):
 		elif block_message:
 			self.write_message(message_text)
 	 
+	def show_statistick(self):
+	 print(f'Statistick: \nMessages: {self.counter_messages}\nPosts: {self.counter_posts}\n') 

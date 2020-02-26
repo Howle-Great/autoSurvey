@@ -26,10 +26,15 @@ class MainTest(BasicTest):
 			self.groups = documents["groups"]
 
 	def test_main(self):
+		blocked_group = "#content .groups_blocked_about"
 		for group in self.groups:
 			self.main_page.redirect(group)
+			if self.driver.find_elements_by_css_selector(blocked_group):
+					if self.driver.find_elements_by_css_selector(blocked_group)[0].is_displayed():
+						continue
 			if '404' in self.driver.title:
 				continue
 			self.main_page.write_smart_advertising(self.post_text, self.message_text)
+		self.main_page.show_statistick()
 
 			
